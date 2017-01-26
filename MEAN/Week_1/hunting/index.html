@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <button class='button'>Button 1</button>
+      <div id="display">
+
+      </div>
+  </body>
+  <script language="JavaScript" type="text/javascript" src="jquery.min.js"></script>
+  <script language="JavaScript" type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    $('button').click(function() {
+      $.get("https://api.github.com/users/epan626", displayName)
+    });
+      function displayName(data) {
+      document.getElementById('display').innerHTML = data.login;
+      }
+    });
+  </script>
+</html>

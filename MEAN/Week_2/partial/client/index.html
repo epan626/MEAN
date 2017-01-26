@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <base href="/">
+    <title></title>
+ <!-- THESE TWO VERSIONS BELOW MUST MATCH (good thing bower will catch that for us, but be aware if you are using CDN's)!!! -->
+    <link href="static/css/bootstrap.css">
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+
+<script>
+    //  inject the ngRoute dependency in the module.
+    var myApp = angular.module('myApp', ['ngRoute']);
+    //  use the config method to set up routing:
+    myApp.config(['$locationProvider', function($locationProvider){
+      $locationProvider.hashPrefix('')
+    }])
+    myApp.config(function($routeProvider){
+      $routeProvider
+        .when('/',{
+            templateUrl: 'partials/customizeUsers.html'
+        })
+        .when('/partial2',{
+            templateUrl: 'partials/userList.html'
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+    });
+    //  build the controllers
+    myApp.factory('userFactory', function(){
+      var users = []
+      var factory = {};
+      factory.getUsers = function(callback){
+        callback(users)
+      }
+      factory.addUsers = function(user){
+        var users1 = {}
+        users1.first_name = user.first_name
+        users1.last_name = user.last_name
+        users1.language = user.language
+        users.push(users1)
+        return users
+      }
+      factory.deleteUser = function(x){
+        users.splice(x, 1)
+        return users
+      }
+      return factory
+    })
+
+    myApp.controller('customizeController', ['$scope', 'userFactory', '$location', function($scope, userFactory, $location){
+      $scope.users= [];
+      userFactory.getUsers(function(data){
+        $scope.users = data
+      })
+      $scope.addUsers = function(){
+        $scope.users = userFactory.addUsers($scope.user)
+      console.log($location)
+      $location.url('/partial2')
+      }
+      $scope.deleteUser = function(x){
+        userFactory.deleteUser(x)
+      }
+    }])
+    myApp.controller('userController', ['$scope', 'userFactory', function($scope, userFactory){
+      $scope.users= [];
+      userFactory.getUsers(function(data){
+        $scope.users = data
+      })
+    }])
+    </script>
+  </head>
+  <body>
+
+        <a href="#/">Customize Users</a> | <a href="#/partial2">User List</a>
+        <div ng-view>
+        <!-- </div> -->
+    </div>
+  </body>
+</html>

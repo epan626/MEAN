@@ -1,0 +1,86 @@
+<div ng-controller='loginController'>
+  <div class="container">
+    <div class="row main">
+      <div class="panel-heading">
+         <div class="panel-title text-center">
+            <h1 class="title">Register and Login</h1>
+            <hr />
+            <div ng-repeat='x in msg'>
+              <p ng-cloak ng-show='message'>{{x}}</p>
+            </div>
+          </div>
+      </div>
+      <div class="main-login main-center">
+        <h1>{{loggeduser.username}}</h1>
+        <h3>Register</h3>
+        <form class="form-horizontal" ng-submit="check()">
+
+          <div class="form-group">
+            <label for="username" class="cols-sm-2 control-label">username</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="username" ng-model='user.username'/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="cols-sm-2 control-label">Password</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                <input type="password" class="form-control" name="password" ng-model='user.password' id='password'/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="conpassword" class="cols-sm-2 control-label">Confirm Password</label>
+            <div class="cols-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                <input type="password" class="form-control" name="conpassword" ng-model='user.conpassword' id='conpassword'/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <input type="submit" class="btn btn-primary btn-lg btn-block login-button"></input>
+          </div>
+          <!-- <div class="login-register">
+                  <a href="index.php">Login</a>
+               </div> -->
+        </form>
+        <h3>Login</h3>
+        <form class="form-horizontal" ng-submit="login()">
+          <div class="form-group row align-items-center">
+            <label for="one_username" class="cols-sm-2 control-label">Username</label>
+            <div class="cols">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="one_username" ng-model='one.username'/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row align-items-center">
+            <label for="one_password" class="cols-sm-2 control-label">Password</label>
+            <div class="cols">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                <input type="password" class="form-control" name="one_password" ng-model='one.password'/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <input type="submit" class="btn btn-primary btn-lg btn-block login-button"></input>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

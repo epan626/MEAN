@@ -1,0 +1,31 @@
+db.students.insert({name: 'Eric', home_state: 'CA', lucky_number: 26, birthday: {month: 2, day: 26, year: 1991}})
+
+db.students.insert({name: 'Charlie', home_state: 'CA', lucky_number: 26, birthday: {month: 3, day: 21, year: 1991}})
+
+db.students.insert({name: 'Tiffany', home_state: 'CA', lucky_number: 2, birthday: {month: 12, day: 12, year: 1990}})
+
+db.students.insert({name: 'Judy', home_state: 'CA', lucky_number: 6, birthday: {month: 1, day: 18, year: 1960}})
+
+db.students.insert({name: 'Johnson', home_state: ‘WA’, lucky_number: 11, birthday: {month: 1, day: 11, year: 1991}})
+
+
+db.students.find({$or: [{home_state: ‘WA’},{home_state: ‘CA’}])
+db.students.find({lucky_number: {$gt: 3}}).pretty()
+db.students.find({lucky_number: {$lte: 10}}).pretty()
+db.students.find({lucky_number: {$gte:1,$lte:9}}).pretty()
+db.students.update({}, {$set: {interest:['coding', 'brunch', 'Mongodb']}},{upsert:false, multi:true});
+db.students.update({_id: ObjectId("5877db092b8d9672ce6ab3df")}, {$push:{interest: 'dota2'}})
+db.students.update({_id: ObjectId("5877dbd72b8d9672ce6ab3e0")}, {$push:{interest: 'reading'}})
+db.students.update({_id: ObjectId("5877dbf62b8d9672ce6ab3e1")}, {$push:{interest: 'writing'}})
+db.students.update({_id: ObjectId("5877dbfa2b8d9672ce6ab3e2")}, {$push:{interest: 'cooking'}})
+db.students.update({_id: ObjectId("5877dbff2b8d9672ce6ab3e3")}, {$push:{interest: 'random shit'}})
+db.students.update({_id: ObjectId("5877dbff2b8d9672ce6ab3e3")}, {$push:{interest: 'taxes'}})
+db.students.update({interest:'taxes'}, {$pull: {interest: 'taxes'}})
+db.students.remove({home_state: 'WA'})
+db.students.remove({lucky_number: {$gt:5}},{justOne:true});
+db.students.update({}, {$set: {number_of_belts: 0}}, {upsert:false, multi:true});
+db.students.update({}, {$inc: {number_of_belts: 1}}, {upsert:false, multi:true});
+db.students.update({}, {$unset: {lucky_number: ""}}, {upsert:false, multi:true});
+db.students.update({}, {$currentDate: {updated_on: Date()}}, {upsert:false, multi:true});
+
+// you dont need upsert //

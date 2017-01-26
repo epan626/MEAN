@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <base href="/">
+    <title></title>
+    <link href="static/css/bootstrap.css">
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+    <script>
+    var myApp = angular.module('myApp', ['ngRoute']);
+    // CONFIG //
+    myApp.config(['$locationProvider', function($locationProvider){
+      $locationProvider.hashPrefix('')
+    }])
+    myApp.config(function($routeProvider){
+      $routeProvider
+        .when('/players',{
+            templateUrl: 'partials/players.html'
+        })
+        .when('/teams',{
+            templateUrl: 'partials/teams.html'
+        })
+        .when('/associations',{
+            templateUrl: 'partials/associations.html'
+        })
+        .when('/:teamname',{
+        templateUrl: 'partials/show.html'
+       })
+      .otherwise({
+          redirectTo: '/'
+        });
+    });
+  // FACTORY //
+  myApp.factory('playerFactory', function(){
+    var players = [];
+    var factory ={};
+    factory.getPlayers = function(callback){
+      callback(players)
+    }
+    factory.addPlayer = function(player){
+      var player1 ={}
+      player1.name = player.name
+      players.push(player1)
+      return players
+    }
+    factory.removePlayer = function(x){
+      players.splice(x, 1)
+      return players
+    }
+    factory.addAssociations = function(player, team){
+      for(var x = 0; x<players.length; x++){
+        if(player.name == players[x].name){
+          players[x].team = team.name
+        }
+      }
+      console.log(players)
+      return players
+    }
+    factory.removeAssign = function(x){
+      players[x].team = ''
+      return players
+    }
+    return factory
+  })
+  myApp.factory('teamFactory', function(){
+    var teams = [];
+    var factory = {};
+    factory.getTeams = function(callback){
+      callback(teams)
+    }
+    factory.addTeam = function(team){
+      var team1 = {}
+      team1.name = team.name
+      teams.push(team1)
+      return teams
+    }
+    factory.removeTeam = function(x){
+      teams.splice(x, 1)
+      return teams
+    }
+    return factory
+  })
+  // CONTROLLERS //
+   myApp.controller('playerController', ['$scope', 'playerFactory', function($scope, playerFactory){
+      $scope.players = []
+      playerFactory.getPlayers(function(data){
+        $scope.players = data
+      });
+      $scope.addPlayer = function() {
+        $scope.players = playerFactory.addPlayer($scope.player)
+      }
+      $scope.removePlayer = function(x){
+        $scope.player = playerFactory.removePlayer(x)
+      }
+    }])
+   myApp.controller('teamController', ['$scope', 'teamFactory', function($scope, teamFactory){
+    $scope.teams =[]
+    teamFactory.getTeams(function(data){
+      $scope.teams = data
+    })
+    $scope.addTeam = function(){
+      $scope.teams = teamFactory.addTeam($scope.team)
+    }
+    $scope.removeTeam = function(x){
+      $scope.player = teamFactory.removeTeam(x)
+    }
+   }])
+   myApp.controller('associationsController', ['$scope', 'teamFactory', 'playerFactory', function($scope, teamFactory, playerFactory){
+       $scope.players = []
+       $scope.teams =[]
+       playerFactory.getPlayers(function(data){
+         $scope.players = data
+       });
+       teamFactory.getTeams(function(data){
+         $scope.teams = data
+       })
+      $scope.addAssociations = function (){
+        var player = $scope.selectedplayer
+        var team = $scope.selectedteam
+        $scope.players = playerFactory.addAssociations(player, team)
+        console.log($scope.selectedplayer)
+        console.log($scope.selectedteam)
+        console.log(team)
+      }
+      $scope.removeAssign = function(x){
+        console.log(x)
+        playerFactory.removeAssign(x)
+      }
+   }])
+
+</script>
+    </head>
+  <body>
+    <a href="#/players">Players</a> | <a href="#/teams">Teams</a> | <a href="#/associations">Assocations</a>
+      <div ng-view>
+      </div>
+  </body>
+</html>

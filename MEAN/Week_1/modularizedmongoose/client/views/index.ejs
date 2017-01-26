@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript"> </script>
+  </head>
+  <body>
+    <a href="users/new">Click here to create new users</a>
+    <h2>Users</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>description</th>
+        <th>edit</th>
+        <th>delete</th>
+      </tr>
+      <% for (var x in users) { %>
+      <tr>
+        <td><a href="/users/<%= users[x].id %>"><%= users[x].name %></a></td>
+        <td><%= users[x].age %></td>
+        <td><%= users[x].description %></td>
+        <td><a href="/edit/<%= users[x].id %>">edit</a></td>
+        <td><a href="/delete/<%= users[x].id %>">delete</a></td>
+        <% } %>
+      </tr>
+    </table>
+  </body>
+</html>

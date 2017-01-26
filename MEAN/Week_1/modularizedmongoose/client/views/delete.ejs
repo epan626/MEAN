@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Are you sure you want to delete?</h1>
+    <form action="/" method="get">
+      <button type="Submit" name="button">No</button>
+    </form>
+    <form action="/delete/<%= user[0].id %>" method="post">
+      <button type="Submit">Yes</button>
+    </form>
+  </body>
+</html>

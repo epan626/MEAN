@@ -1,0 +1,20 @@
+<div ng-controller="personalController">
+  <table>
+    <thead>
+      <tr>
+        <th>first name</th>
+        <th>last name</th>
+        <th>birthday</th>
+        <th>created at</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="x in user">
+      <td>{{x.first_name}}</td>
+      <td>{{x.last_name}}</td>
+      <td>{{x.birthday | date: "MM/dd/yyyy"}}</td>
+      <td>{{x.created_at | date: "MM/dd/yyyy"}}</td>
+      <td><a href="" ng-click='delete(x)'>Delete</a></td>
+    </tr>
+  </table>
+</div>

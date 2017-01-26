@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Messageboard</title>
+  </head>
+  <body>
+    <h1>Eric's Message Board</h1>
+    <div>
+      <form action="/msg" method="post">
+        Name: <input type="text" name="name">
+        Message: <input type="text" name="message">
+        <button type="Submit">Submit</button>
+      </form>
+        <ul>
+            <% for(var x in posts) { %>
+          <li>Name <%= posts[x].name %></li>
+          <li>Message <%= posts[x].message%></li>
+          <% for(var comment of posts[x].comments) { %>
+          <!-- Code Above is ES6 -->
+          <!-- for(var i = 0; i<post[x].comments; i++) -->
+          <!-- posts[x].comments[i].name -->
+        <ul>
+          <li>Name <%= comment.name %></li>
+          <li>Comments <%= comment.comment %></li>
+        </ul>
+      </ul>
+      <% } %>
+      <form action="/comment/<%=posts[x].id %>" method="post">
+        Name: <input type="text" name="name">
+        Comment: <input type="text" name="comment">
+        <button type="Submit">Submit Comment</button>
+      </form>
+      <% } %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<div ng-controller="userController">
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Show</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tr ng-repeat="user in users | filter:searchText">
+        <td>{{user.first_name}} {{user.last_name}}</td>
+        <td><a ng-href="#/show/{{user._id}}">show</a></td>
+        <td><a href="#/edit/{{user._id}}">edit</a></td>
+        <td><a href="" ng-click='delete(user)'>Delete</a></td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <label>
+      Search: <input type="text" ng-model="searchText">
+    </label>
+    <button type="button" name="button"><a href="#/new">New Friend</a></button>
+  </div>
+</div>

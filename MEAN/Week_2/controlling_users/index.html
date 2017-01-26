@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app='myUsers'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src='bower_components/angular/angular.js'></script>
+    <script type='text/javascript'>
+      var myUserModule = angular.module('myUsers', []);
+      myUserModule.controller('userController', function ($scope){
+        $scope.users = [
+          {first_name: 'Eric', last_name: 'pan', favlang: 'javascript'}
+        ];
+        $scope.addUser = function(){
+          $scope.users.push($scope.newUser);
+          $scope.newUser = {};
+        };
+        $scope.deleteUser = function(x){
+          $scope.users.splice(x, 1);
+      }
+      })
+    </script>
+  </head>
+  <body>
+    <div ng-controller='userController'>
+      <form>
+        <fieldset>
+          <legend>Users Controller</legend>
+          First Name: <input type="text" ng-model='newUser.first_name'>
+          Last Name: <input type="text" ng-model='newUser.last_name'>
+          Favorite Language: <input type="text" ng-model='newUser.favlang'>
+          <input type="submit" value="Add user" ng-click='addUser()'>
+          <table>
+            <tr>
+              <thead>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Fav Language</th>
+                <th>Action</th>
+              </thead>
+            </tr>
+            <tr>
+              <tbody ng-repeat='user in users track by $index'>
+                <td>{{user.first_name}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.favlang}}</td>
+                <td><input type="submit" value='Delete User' ng-click="deleteUser($index)"></td>
+              </tbody>
+            </tr>
+          </table>
+        </fieldset>
+
+      </form>
+    </div>
+  </body>
+</html>

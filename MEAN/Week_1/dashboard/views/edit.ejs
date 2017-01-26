@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p>EDIT FORM</p>
+    <form action="/edit/<%= user[0].id %>" method="post">
+    Age: <input type="text" name="age" value="<%= user[0].age %>">
+    Name : <input type="text" name="name" value="<%= user[0].name %>">
+    Description:<input type="textarea" name="description" value="<%= user[0].description %>">
+      <button type="submit" name="button">submit</button>
+    </form>
+  </body>
+</html>

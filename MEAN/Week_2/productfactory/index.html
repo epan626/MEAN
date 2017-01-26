@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app='myProduct'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src='bower_components/angular/angular.js'></script>
+    <script type='text/javascript'>
+      var myProductMod = angular.module('myProduct', []);
+      myProductMod.factory('productFactory', function(){
+        var products = [];
+        var factory = {};
+        factory.getProducts = function(callback){
+          callback(products)
+        }
+        factory.addProducts = function(product){
+          var product1 = {}
+          product1.name = product.name
+          product1.price = product.price
+          products.push(product1)
+          products.sortBy = function sort(arr){
+             for (var i = arr.length-1; i>=0; i--){
+               for(var x = 1; x<=i; x++){
+                 if(arr[x-1].price>arr[x].price){
+                     var holder = arr[x-1];
+                     arr[x-1] = arr[x];
+                     arr[x] = holder;
+                  }
+               }
+             }
+             return arr
+            }
+          products.sortBy(products)
+          return products
+        }
+        factory.deleteProduct = function(x){
+          products.splice(x, 1)
+          return products
+
+        }
+        return factory;
+      })
+      myProductMod.controller('productController', ['$scope', 'productFactory', function($scope, productFactory){
+        $scope.products = [];
+        productFactory.getProducts(function(data){
+          $scope.products = data;
+        });
+
+        $scope.addProduct = function(){
+          $scope.products = productFactory.addProducts($scope.product)
+          // return $scope.sortBy($scope.products)
+        };
+        $scope.deleteProduct = function(x){
+          productFactory.deleteProduct(x)
+        };
+        $scope.reverse = true
+        $scope.sortBy = function sort(arr){
+          if($scope.reverse == true){
+           for (var i = arr.length-1; i>=0; i--){
+             for(var x = 1; x<=i; x++){
+               if(arr[x-1].price>arr[x].price){
+                   var holder = arr[x-1];
+                   arr[x-1] = arr[x];
+                   arr[x] = holder;
+                }
+             }
+           }
+           $scope.reverse = false
+           return arr
+          }
+          if($scope.reverse==false){
+           for (var i = arr.length-1; i>=0; i--){
+             for(var x = 1; x<=i; x++){
+               if(arr[x-1].price<arr[x].price){
+                   var holder = arr[x-1];
+                   arr[x-1] = arr[x];
+                   arr[x] = holder;
+                }
+             }
+           }
+           $scope.reverse = true
+           return arr
+           }
+        }
+        }
+      ])
+    </script>
+  </head>
+  <body>
+    <div ng-controller='productController'>
+      <form>
+        <fieldset>
+          <legend>Product Controller</legend>
+          Product Name: <input type="text" ng-model='product.name'>
+          Product Price: <input type="number" ng-model='product.price'>
+          <input type="submit" value="Add Product" ng-click='addProduct()'>
+          <table>
+            <tr>
+              <thead>
+                <th>Name</th>
+                <th ng-click="sortBy(products)">price</th>
+                <th>Action</th>
+              </thead>
+            </tr>
+            <tr ng-repeat='product in products track by $index'>
+                <td>{{product.name}}</td>
+                <td>{{product.price | currency: $ : 2}}</td>
+                <td><input type="submit" value='{{$index}}' ng-click="deleteProduct($index)"></td>
+            </tr>
+          </table>
+        </fieldset>
+
+      </form>
+    </div>
+  </body>
+</html>

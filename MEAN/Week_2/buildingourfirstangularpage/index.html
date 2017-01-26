@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+     <script src = 'bower_components/angular/angular.js'></script>
+     <script type="text/javascript">
+     var myAppModule = angular.module('myApp',[]);
+     myAppModule.controller('app', function ($scope){
+       $scope.myName = 'Eric'; // your name!
+       $scope.myFavoriteLanguage = 'JavaScript';
+       $scope.myFavoriteJSLibrary = 'Angular';
+      });
+
+     </script>
+  </head>
+  <body>
+    <div ng-controller='app'>
+      <ul>
+        <li ng-init='myName'>{{myName}}</li>
+        <li ng-init='myFavoriteLanguage'>{{myFavoriteLanguage}}</li>
+        <li ng-init='myFavoriteJSLibrary'>{{myFavoriteJSLibrary}}</li>
+      </ul>
+      <div ng-init='msg=["Hello my name is Jessica, my favorite Language is JavaScript, because the Angular library is awesome"]'\>
+        <ul>
+          <li ng-repeat='m in msg'>{{m}}</li>
+        </ul>
+        <p>Hello my name is <span ng-bind="myName"></span>, my favorite Language is <span ng-bind="myFavoriteLanguage"></span>, because the <span ng-bind="myFavoriteJSLibrary"></span> Library is awesome!</p>
+        <!-- OR -->
+        <p>Hello my name is, {{myName}}, my favorite language is {{myFavoriteLanguage}}, because the {{myFavoriteJSLibrary}} Library is awesome!</p>
+      </div>
+    </div>
+  </body>
+</html>

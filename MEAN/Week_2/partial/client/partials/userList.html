@@ -1,0 +1,16 @@
+<div ng-controller='userController'>
+  <table>
+    <thead>
+      <tr>
+        <th ng-click='predicate="first_name"'>First Name</th>
+        <th ng-click='predicate="last_name"'>Last Name</th>
+        <th ng-click='predicate="language"'>Fav language</th>
+      </tr>
+    </thead>
+    <tr ng-repeat='user in users | orderBy:predicate:reverse'>
+      <td>{{user.first_name}}</td>
+      <td>{{user.last_name}}</td>
+      <td>{{user.language}}</td>
+    </tr>
+  </table>
+</div>

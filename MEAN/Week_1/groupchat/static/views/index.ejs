@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>group chat</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type ="text/javascript">
+        $(document).ready(function (){
+            var socket = io.connect();
+            var name = prompt('What is your name');
+            var current_user;
+            var new_message;
+            socket.emit('new_user_enter', {name: name});
+            socket.on('alert_join_user', function(data){
+              $( "#msg" ).append( "<p>"+data.response+ ' has join the chatroom </p>' )
+            })
+            socket.on('current_user', function(data){
+              current_user = data.current_user;
+            })
+            $('#enter').submit(function(){
+              new_message = $('input').val()
+              socket.emit('new_msg', {message: new_message, user: current_user})
+              return false
+            })
+            socket.on('displaymsg', function(data){
+              $( "#msg" ).append( "<p>"+data.user+' ' + data.new_message+"</p>" )
+            })
+            $(window).unload(function(){
+              socket.emit('disconnected', current_user)
+            })
+            socket.on('user_dc', function(data){
+              $( "#msg" ).append( "<p>"+data.response+"</p>" )
+            })
+        })
+    </script>
+  </head>
+  <body>
+    <div>
+      <h1>Conversation Board</h1>
+      <div id='msg'></div>
+      <form id = 'enter' action="/enter" method="post">
+        <input type="text">
+        <input type="submit" value="Send">
+      </form>
+    </div>
+  </body>
+</html>

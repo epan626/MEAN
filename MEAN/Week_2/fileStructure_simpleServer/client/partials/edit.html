@@ -1,0 +1,25 @@
+<div ng-controller="editController">
+  <form ng-submit='update()'>
+      First Name: <input type="text" ng-model='user.first_name'>
+      Last Name: <input type="text" ng-model='user.last_name'>
+      Birthday: <input type="text" ng-model='user.birthday'>
+      <!-- ng-init ="user.first_name=x.first_name" value="{{x.first_name}}"
+      ng-init ="user.last_name=x.last_name" value="{{x.last_name}}"
+      ng-init ="user.birthday=x.birthday" value="{{x.birthday}}" -->
+      <input type="submit" value="update">
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Show</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="x in users">
+      <td>{{x.first_name}} {{x.last_name}}</td>
+      <td><a href="" ng-click='delete(x)'>Delete</a></td>
+    </tr>
+  </table>
+</div>
