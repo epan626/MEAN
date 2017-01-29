@@ -1,0 +1,27 @@
+<div ng-controller='loginController'>
+
+<div class="row">
+  <div class="col-sm-4 offset-sm-5">
+    <h3>Bucket Lists</h3>
+  </div>
+  <div class="alert alert-danger" ng-repeat='message in messages'>
+    <p ng-show='errors'> {{ message }} </p>
+  </div>
+</div>
+
+  <form ng-submit='enter()'>
+
+<div class="row">
+  <div class="col-sm-4 offset-sm-3">
+    Name: <input type="text" ng-model='user.name'>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4 offset-sm-5">
+    <input type="submit" value='enter'>
+  </div>
+</div>
+
+    </form>
+</div>

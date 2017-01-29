@@ -1,0 +1,43 @@
+<div ng-controller='dashboardController'>
+  <div class="row">
+    <div class="col-sm-4">
+      <ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="">Bucket List</a></li>
+  <li role="presentation"><a href="#/dashboard">Home</a></li>
+  <li role="presentation"><a href="#/" ng-click="logout()">Logout</a></li>
+</ul>
+    </div>
+  </div>
+  <h1>Welcome, {{loggeduser.name}}!</h1>
+<form ng-submit='addlist()'>
+  <div class="row">
+    <div class="col-sm-2">
+      <input type="text" ng-model="bucket.title" placeholder="Title">
+    </div>
+    <div class="col-sm-3">
+      <input type="text" ng-model="bucket.description" placeholder="Description">
+    </div>
+    <div class="col-sm-4">
+    <select ng-options='user as user.name for user in NEusers' ng-model='bucket.tagged'> </select>
+  </div>
+  <input type="submit" value='add to list'>
+  </form>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <h6>Before i die i want to</h6>
+    <div ng-repeat='bucket in bucketlist'>
+      <p> <input ng-click='status(bucket)' ng-checked="bucket.status==true" type="checkbox" ng-model='bucket.status'> {{bucket.creator}} | {{bucket.title}} - {{bucket.description}} - {{bucket.created_at | date: 'mediumDate' }}</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <h3>other users</h3>
+    <div ng-repeat='user in users'>
+      <p><a ng-if='user._id!=loggeduser._id' href="#/user/{{user._id}}">{{user.name}}</a></p>
+    </div>
+  </div>
+
+</div>
+</div>

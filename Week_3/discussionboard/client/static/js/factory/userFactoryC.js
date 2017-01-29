@@ -36,9 +36,6 @@ app.factory('userFactory',['$http', '$routeParams', function($http, $routeParams
       }
     )
   }
-  factory.logout = function(){
-    loggeduser = {}
-  }
 
   factory.showuser = function(callback){
     $http.get('/showuser/'+$routeParams.id)
