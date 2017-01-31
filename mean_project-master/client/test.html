@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Load angular components -->
+    <script src="angular/angular.js" charset="utf-8"></script>
+    <script src="angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="angular-cookies/angular-cookies.js"></script>
+    <!-- End components -->
+    <!-- Load angular app file/controllers/factories -->
+    <script src="assets/app.js" charset="utf-8"></script>
+    <script src="assets/factories/priceFactory.js" charset="utf-8"></script>
+    <script src="assets/controllers/dashboardController.js" charset="utf-8"></script>
+    <!-- End controllers/factories -->
+    <!-- Load styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    <!-- End styling -->
+  </head>
+  <body>
+    <div class="container-fluid" ng-controller='dashboardController'>
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-1">
+          <h1><button ng-click="getInfo()">get flights</button></h1>
+          <div id="map"></div>
+          <script>
+            function initMap() {
+              // Create a map object and specify the DOM element for display.
+              var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                scrollwheel: false,
+                zoom: 8
+              });
+            }
+
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuHAGoMyWA9L9rmINkSb4dVLjWFJWXCB8&callback=initMap"
+          async defer></script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
