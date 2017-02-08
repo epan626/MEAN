@@ -1,0 +1,47 @@
+<div ng-controller='singleTripController'>
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div map-lazy-load="https://maps.google.com/maps/api/js"
+        map-lazy-load-params="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqJHTFku0DDoajNXYYgSA0GQeOHjDfczs&libraries=places">
+        <div class="col-sm-2">
+          <div id="slide-panel" set-class-when-at-top="fix-to-top">
+              <a href="" class="btn btn-danger" id="opener"><i class="glyphicon glyphicon-align-justify"></i></a>
+              <div ng-hide="yelp">
+                <img ng-src="{{yelp_place.data.image_url}}">
+                <h3>{{yelp_place.name}}</h3>
+                <img src="{{yelp_place.rating}}">Reviews(<span>{{yelp_place.data.review_count}}</span>)
+                <h4>{{yelp_place.address1}}</h4>
+                <h4>{{yelp_place.address2}}</h4>
+                <h5>{{yelp_place.phone}}</h5>
+                <a href="{{yelp_place.url}}" target="_blank">Click to visit Yelp page</a>
+                <button ng-click="coordinates(yelp_place.data)" class="btn btn-primary visit">Click to add to route</button>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <ng-map id='singletripdiv' center="34,-118" zoom="7">
+            <directions
+              draggable="true"
+              panel="directions-panel"
+              travel-mode="DRIVING"
+              optimizeWaypoints = true
+              waypoints={{waypoints}}
+              origin={{start}}
+              destination={{end}}>
+            </directions>
+          </ng-map>
+          <div class="alert alert-danger" ng-repeat='message in messages'>
+            <p ng-show='errors'> {{ message }} </p>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div id="right-panel">
+            <a href="" class="btn btn-danger" id="right-opener"><i class="glyphicon glyphicon-align-justify"></i></a>
+            <div id="directions-panel">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

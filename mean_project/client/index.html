@@ -3,33 +3,201 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Mean Project</title>
-
+    <title>Pathfinder</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMo58uPC1AZXLXwk8eMMcnk6Nkw4k2wMc&libraries=places" async defer></script>
     <!-- <script src="assets/static/js/map.js"></script> -->
     <!-- Load angular components -->
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap-theme.css">
     <script src="angular/angular.js" charset="utf-8"></script>
     <script src="angular-route/angular-route.js" charset="utf-8"></script>
     <script src="angular-cookies/angular-cookies.js"></script>
-
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMo58uPC1AZXLXwk8eMMcnk6Nkw4k2wMc&libraries=places" async defer></script> -->
     <script src="ngmap/build/scripts/ng-map.min.js"></script>
+    <script src="assets/static/js/markerwithlabel.js"></script>
     <!-- End components -->
     <!-- Load angular app file/controllers/factories -->
     <script src="assets/app.js" charset="utf-8"></script>
-    <script src="assets/factories/priceFactory.js" charset="utf-8"></script>
+    <script src="assets/controllers/rootScopeMarkers.js" charset="utf-8"></script>
+    <script src="assets/factories/yelpFactory.js" charset="utf-8"></script>
+    <script src="assets/factories/userFactory.js" charset="utf-8"></script>
+    <script src="assets/factories/tripFactory.js" charset="utf-8"></script>
     <script src="assets/controllers/dashboardController.js" charset="utf-8"></script>
+    <script src="assets/controllers/loginRegController.js" charset="utf-8"></script>
+    <script src="assets/controllers/singleTripController.js" charset="utf-8"></script>
+    <script src='assets/controllers/allTripController.js'></script>
+    <script src="assets/controllers/userController.js" charset="utf-8"></script>
+    <script src="assets/factories/scroll.js" charset="utf-8"></script>
+    <script src="assets/static/js/slidePanels.js"></script>
     <!-- End controllers/factories -->
     <link rel="stylesheet" href="assets/static/css/styles.css">
-    <style>
-      ng-map{
-        width: 800px;
-        height:600px;
-      }
-    </style>
   </head>
   <body>
+    <div ng-controller="loginController">
+      <div class="nav-container">
+        <nav class="navbar navbar-default">
+          <div class="container">
+            <div class="row">
+            <div class="navbar-header col-sm-4 col-sm-offset-2">
+              <a href="#/" class="navbar-brand">Pathfinder</a>
+            </div>
+            <div class="col-sm-4 col-sm-offset-2">
+              <ul class="nav navbar-nav">
+                <li><a ng-cloak href="#" ng-if='isUserloggedIn' ng-click='logout()'>Logout</a></li>
+                <li><a href="" ng-if='!isUserloggedIn' data-toggle="modal" data-target="#loginModal">Login</a></li>
+                <li><a ng-cloak href="#/user/{{loggeduser._id}}" ng-if='isUserloggedIn' >{{loggeduser.username}}</a></li>
+                <li><a href="" ng-if='!isUserloggedIn' data-toggle="modal" data-target="#registerModal">Register</a></li>
+                <li><a href="#/trips">All Trips</a></li>
+                <!-- REGISTER MODAL START -->
+                <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="row">
+                          <div class="col-md-4 col-md-offset-5">
+                            <h4 class="modal-title align-middle" id="myModalLabel">Register</h4>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-12 col-md-offset-3">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="alert alert-danger" ng-repeat='message in messages'>
+                                  <p ng-show='errors'> {{ message }} </p>
+                                </div>
+                              </div>
+                            </div>
+                          <div class="main-login main-center">
+                            <div class="register form">
+                              <div class="row">
+                                <div class="form-group col-md-4 col-md-offset-1">
+                                  <label for="name" class="cols-sm-2 control-label">Username</label>
+                                  <div class="cols-sm-10">
+                                    <div class="input-group">
+                                      <span><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                      <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Username" ng-model='user.username'/>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-4 col-md-offset-1">
+                                  <label for="email" class="cols-sm-2 control-label">Email</label>
+                                  <div class="cols-sm-10">
+                                    <div class="input-group">
+                                      <span><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                      <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" ng-model = 'user.email'/>
+                                     </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-4 col-md-offset-1">
+                                  <label for="password" class="cols-sm-2 control-label">Password</label>
+                                  <div class="cols-sm-10">
+                                    <div class="input-group">
+                                      <span><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                      <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" ng-model='user.password'/>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-4 col-md-offset-1">
+                                  <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                                  <div class="cols-sm-10">
+                                    <div class="input-group">
+                                      <span><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                      <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" ng-model='user.conpassword'/>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <input id='registerbut' type="submit" ng-click ='register()' data-dismiss="modal" class="btn-primary btn-sm" value='Register'>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- REGISTER MODAL END -->
 
+       <!-- LOGIN MODAL START -->
+       <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <div class="row">
+                 <div class="col-md-4 col-md-offset-5">
+                   <h4 class="modal-title align-middle" id="myModalLabel2">Login</h4>
+                 </div>
+               </div>
+             </div>
+             <div class="modal-body">
+               <div class="row">
+                 <div class="col-md-12 col-md-offset-3">
+                   <div class="row">
+                     <div class="col-md-6">
+                       <div class="alert alert-danger" ng-repeat='message in messages'>
+                         <p ng-show='errors'> {{ message }} </p>
+                       </div>
+                     </div>
+                   </div>
+                 <div class="main-login main-center">
+                   <div class="Login_form">
+                     <div class="row">
+                       <div class="form-group col-md-4 col-md-offset-1">
+                         <label for="email" class="cols-sm-2 control-label">Email</label>
+                         <div class="cols-sm-10">
+                           <div class="input-group">
+                             <span><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                             <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" ng-model = 'one.email'/>
+                            </div>
+                         </div>
+                       </div>
+                     </div>
+                     <div class="row">
+                       <div class="form-group col-md-4 col-md-offset-1">
+                         <label for="password" class="cols-sm-2 control-label">Password</label>
+                         <div class="cols-sm-10">
+                           <div class="input-group">
+                             <span><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                             <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" ng-model='one.password'/>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 <input id='loginbut'type="submit" data-dismiss="modal"  ng-click ='login()' class="btn-primary btn-sm" value = 'Sign in'>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <!-- LOGIN MODAL END -->
+      </div>
+    </div>
+            </ul>
+          </div>
+        </div>
+      </nav><!-- end nav container -->
+    </div>
+    <!-- end login controller -->
     <div ng-view></div>
-
   </body>
 </html>

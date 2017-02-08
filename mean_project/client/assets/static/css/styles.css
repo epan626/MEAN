@@ -10,6 +10,65 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+body{
+  background-color: #FDFAF3;
+  background-image: url('../images/travel.png');
+}
+
+#userdiv{
+  background-color: #FDFAF3;
+  width: 1000px;
+  margin-left:  220px;
+  margin-top: 100px;
+}
+
+#mappp{
+  border: 3px solid #3E9C9F;
+  margin-bottom: 60px;
+}
+
+/*#customnav{
+  background-color: #FFFFFF !important;
+}*/
+
+ng-map{
+  margin-left: -15px;
+  margin-right: -15px;
+  height:900px !important;
+  display: inline-block;
+}
+
+#inputdiv{
+  background-color: #FDFAF3;
+}
+
+#inputdiv input{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#inputdiv button{
+  margin-top: 15px;
+}
+
+#userdiv{
+  border: 2px solid #3E9C9F;
+
+}
+
+#savedtrips{
+  background-color: #FDFAF3;
+  width: 1000px;
+  margin-left: 220px;
+  margin-top: 100px;
+  border: 2px solid #3E9C9F;
+
+}
+#singletripdiv{
+  border: 2px solid #3E9C9F;
+}
+
 #description {
   font-family: Roboto;
   font-size: 15px;
@@ -79,4 +138,53 @@ html, body {
 }
 #target {
   width: 345px;
+}
+
+body{
+  width: 100%;
+}
+.search{
+  display: inline-block;
+}
+.trip{
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#slide-panel {
+  width:175px;
+  padding:10px;
+  background:#EAEAEA;
+  margin-left:-200px;
+  display: inline-block;
+}
+#opener {
+  float:right;
+  margin:-10px -50px 0px 0px;
+  border-radius:0;
+}
+#right-panel {
+  position: absolute;
+  width:190px;
+  padding:10px;
+  background:#EAEAEA;
+  right: 0px;
+  display: inline-block;
+  margin-bottom: 60px;
+}
+#right-opener {
+  margin:-10px 0px 0px -50px;
+  border-radius:0;
+}
+.fix-to-top {
+  position: fixed;
+  top: 0;
+}
+.visit{
+  margin-top: 5px;
+}
+.navbar-default{
+  background-color: #D1D6E7;
+}
+.save{
+  margin-left: 30px;
 }

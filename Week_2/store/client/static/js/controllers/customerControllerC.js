@@ -1,6 +1,8 @@
 app.controller('customerController', ['$scope', 'productFactory', 'userFactory', '$routeParams', '$location', '$cookies', function($scope, productFactory,  userFactory, $routeParams, $location, $cookies){
   $scope.loggeduser = {}
   $scope.users =[]
+  var emailval = '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'
+
   var cookie = $cookies.get('cookieloggeduser')
   console.log(cookie)
 
@@ -14,6 +16,9 @@ app.controller('customerController', ['$scope', 'productFactory', 'userFactory',
   if(!$scope.user.email){
     $scope.errors = true;
     $scope.messages.push('Your email is required!')
+  }
+  if($scope.user.email==emailval){
+    console.log('yes');  
   }
   if(!$scope.user.first_name){
     $scope.errors = true;

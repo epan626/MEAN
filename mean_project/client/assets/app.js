@@ -12,6 +12,15 @@ app.config(function($routeProvider){
     .when('/', {
       templateUrl: 'partials/index.html'
     })
+    .when('/trip/:id',{
+      templateUrl: 'partials/trip.html'
+    })
+    .when('/user/:id', {
+      templateUrl: 'partials/user.html'
+    })
+    .when('/trips',{
+      templateUrl: 'partials/alltrips.html'
+    })
     .otherwise({
       redirectTo: '/'
     });

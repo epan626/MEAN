@@ -1,0 +1,30 @@
+<div id='savedtrips' ng-controller = 'allTripController'>
+	<h3  class="col-lg-12 col-lg-offset-5">Saved Trips</h3>
+<hr/>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<table class='table-hover table'>
+					<tr>
+						<th>Creator</th>
+						<th>Trip</th>
+						<th>Start</th>
+						<th>End</th>
+						<th>Pitstops</th>
+					</tr>
+						<tr ng-repeat = 'trip in alltrips'>
+
+							<td><a href="#/user/{{trip.user}}">{{trip.creator}}</a> </td>
+							<td><a href="" ng-click="showTrip(trip)">{{trip.title}}</a></td>
+							<td>{{trip.startadd}}</td>
+							<td>{{trip.endadd}}</td>
+							<td ng-click='show = ! show'><a href="">{{trip.pitStops.length}} </a><p ng-repeat ='pit in trip.pitStops'ng-show='show'><a target = "_blank" href="{{pit.place.url}}">{{pit.place.name}}</a></td>
+						</tr>
+					</div>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

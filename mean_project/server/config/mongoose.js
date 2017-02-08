@@ -10,7 +10,7 @@ var models_path = path.join(__dirname, './../models')
 //Regular expression that checks for .js extension
 var reg = new RegExp(".js$", "i")
 //database information
-var dbURI = 'mongodb://localhost/logReg_session'
+var dbURI = 'mongodb://localhost/roadtrip'
 
 //connect to the mongodb database using mongoose
 mongoose.connect( dbURI)

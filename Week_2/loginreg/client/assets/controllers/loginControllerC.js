@@ -55,9 +55,9 @@ app.controller('loginController', ['userFactory', '$scope', '$location', '$cooki
               $scope.message = true;
               $scope.msg.push(result.data);
             } else {
-              $cookies.put('cookieloggeduser', result._id)
+              // $cookies.put('cookieloggeduser', result._id)
               console.log(result._id)
-              $location.url('/success')
+              // $location.url('/success')
             }
         })
       }

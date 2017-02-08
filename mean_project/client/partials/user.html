@@ -1,0 +1,28 @@
+<div id='userdiv' ng-controller='userController'>
+	<h3 class="col-lg-12 col-lg-offset-5">{{selecteduser.username}}'s Trips</h3>
+<hr/>
+
+<div class="row">
+	<div class="col-lg-12 col-lg-offset-2">
+		<div class="row">
+			<div class="col-lg-8">
+				<table class='table-hover table'>
+					<tr>
+						<th>Trip</th>
+						<th>Start</th>
+						<th>End</th>
+						<th>Pitstops</th>
+					</tr>
+					<tr ng-repeat = 'trip in selecteduser.trips'>
+						<td ng-click="showTrip(trip)"><a href="">{{trip.title}}</a></td>
+						<td>{{trip.startadd}}</td>
+						<td>{{trip.endadd}}</td>
+						<td ng-click='show = ! show'><a href="">{{trip.pitStops.length}} </a><p ng-repeat ='pit in trip.pitStops'ng-show='show'><a target = "_blank" href="{{pit.place.url}}">{{pit.place.name}}</a></p></td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+</div>

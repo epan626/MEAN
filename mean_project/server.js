@@ -5,7 +5,11 @@ var express  = require( 'express' ),
     root     = __dirname,
     port     = process.env.PORT || 8000,
     app      = express()
-
+// var oauthSignature = require('oauth-signature');
+// var n = require('nonce')();
+// var request = require('request');
+// var qs = require('querystring');
+// var _ = require('lodash');
 
 //set static paths for the app
 app.use( express.static( path.join( root, 'client' )));
